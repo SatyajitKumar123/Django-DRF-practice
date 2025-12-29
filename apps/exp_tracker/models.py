@@ -30,6 +30,12 @@ class Expense(models.Model):
         indexes = [
             models.Index(fields=['user', '-expense_date'])
         ]
+        constraints = [
+            models.CheckConstraint(
+                condition=models.Q(amount__gt=0),
+                name="amount_positive"
+            )
+        ]
         
     
     def __str__(self):
