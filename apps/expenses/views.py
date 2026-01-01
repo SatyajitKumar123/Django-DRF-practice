@@ -1,16 +1,16 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework import status
+
+from .serializers import ExpenseSerializer
 
 
 class HealthAPIView(APIView):
-    def get(self, request):
-        print("REQUEST CLASS:", type(request))
-        print("METHOD:", request.method)
-        print("QUERY PARAMS:", request.query_params)
-        print("USER:", request.user)
+    def post(self, request):
+        serializer = ExpenseSerializer(data=request.data)
+
+        if not serializer.is_valid():
+              return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
-        
-        return Response({
-            "status": "ok",
-            "message": "Inspect DRF request in terminal"
-        })
+
+        return Response(serializer.data)
