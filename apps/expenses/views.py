@@ -1,5 +1,5 @@
 # from rest_framework.views import APIView
-from rest_framework.generics import ListCreateAPIView
+from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 # from rest_framework.response import Response
 from rest_framework import status
 
@@ -29,5 +29,9 @@ from .serializers import ExpenseSerializer
     
 
 class ExpenseListCreateAPIView(ListCreateAPIView):
+    queryset = Expense.objects.all()
+    serializer_class = ExpenseSerializer
+    
+class ExpenseDetailAPIView(RetrieveUpdateDestroyAPIView):
     queryset = Expense.objects.all()
     serializer_class = ExpenseSerializer
