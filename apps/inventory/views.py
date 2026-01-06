@@ -17,3 +17,4 @@ class ProductViewSet(viewsets.ModelViewSet):
     search_fields = ['sku', 'name']
     ordering_fields = ['price', 'quantity']
     
+    

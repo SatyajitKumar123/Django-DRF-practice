@@ -7,6 +7,7 @@ from .serializers import ExpenseSerializer
 
 
 class ExpenseListCreateAPIView(ListCreateAPIView):
+    
     serializer_class = ExpenseSerializer
     permission_classes = [IsAuthenticated]
     

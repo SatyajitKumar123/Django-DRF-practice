@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
 from pathlib import Path
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -124,10 +125,31 @@ STATIC_URL = 'static/'
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
         'rest_framework.authentication.SessionAuthentication',
     ],
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
     ],
+}
+
+SIMPLE_JWT = {
+    # Access token lifetime
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
+    
+    # Refresh token lifetime
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    
+    # Algorithm used to sign tokens
+    'ALGORITHM': 'HS256',
+    
+    # Django secret key is used to sign JWTs
+    'SIGNING_KEY': SECRET_KEY,
+    
+    # Header format: Authorization: Bearer <token>
+    'AUTH_HEADER_TYPES': ('Bearer',),
+    
+    # What claim identifies the user
+    'USER_ID_FIELD': 'id',
+    'USER_ID_CLAIM': 'user_id',
 }
